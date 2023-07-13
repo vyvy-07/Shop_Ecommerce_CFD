@@ -1,0 +1,9 @@
+.main-nav .menu li a.active {
+  color: #fcb941 !important;
+}
+.mobile-nav .mobile-menu li a.active {
+  color: #fcb941 !important;
+}
+.top-menu ul li a.active {
+  color: #fcb941 !important;
+}

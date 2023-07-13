@@ -1,0 +1,25 @@
+import { useEffect, useState } from "react";
+
+const useQuery = (promise, dependency = []) => {
+  const [data, setData] = useState();
+  const [error, setError] = useState({});
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    fetchData();
+  }, dependency);
+  const fetchData = async () => {
+    try {
+      const res = await promise();
+      setData(res?.data?.data);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      console.log("error :>> ", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  return { data, loading, error };
+};
+
+export default useQuery;

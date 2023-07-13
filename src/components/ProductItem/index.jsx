@@ -8,12 +8,16 @@ const ProductItem = ({ name, price, slug, images, rating }) => {
   return (
     <div className="product product-2" style={{ minHeight: 405 }}>
       <figure className="product-media">
-        <Link to={PATHS.PRODUCTS_DETAIL.replace(":slug", slug)}>
-          {images.length > 0 ? (
+        <Link
+          to={PATHS.PRODUCTS_DETAIL.replace(":slug", slug)}
+          style={{ height: 275 }}
+        >
+          {images?.length > 0 ? (
             <img
-              src={images[0]}
+              src={images?.[0]}
               alt="Product image"
               className="product-image"
+              style={{ height: "100%", width: "100%", objectFit: "cover" }}
             />
           ) : (
             <Image

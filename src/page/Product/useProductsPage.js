@@ -84,9 +84,10 @@ const useProductsPage = () => {
     error: errorCategory,
   } = useQuery(() => productsServices.getCategories());
   let listCategory = dataCategories?.products;
+  //console.log("listCategory :>> ", listCategory);
   const filterProps = {
     loadCategory,
-    dataCategories,
+    listCategory,
     errorCategory,
   };
   return {

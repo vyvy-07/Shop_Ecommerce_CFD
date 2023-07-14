@@ -1,17 +1,24 @@
 import React from "react";
 
-const CheckedItem = ({ label, children, required, onClick, ...propsCheck }) => {
+const CheckedItem = ({
+  label,
+  children,
+  id,
+  required,
+  onClick,
+  ...propsCheck
+}) => {
   return (
     <div className="custom-control custom-checkbox">
       <input
         type="checkbox"
         className="custom-control-input"
-        id="signin-remember"
+        id={id || checkbox || "signin-remember"}
         onClick={onClick}
       />
       <label className="custom-control-label" htmlFor="signin-remember">
         {label}
-        {children || ""} 
+        {children || ""}
       </label>
     </div>
   );

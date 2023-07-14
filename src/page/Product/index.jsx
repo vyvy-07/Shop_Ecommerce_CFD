@@ -3,11 +3,23 @@ import Breadcrumb from "../../components/Breadcrumb";
 import { PATHS } from "../../constant/path";
 import FilterProduct from "./FilterProduct";
 import ListProducts from "./ListProducts";
-import Pagination from "./Pagination";
+import Pagination from "../../components/Pagination";
 import Toolbox from "./Toolbox";
+import useProductsPage from "./useProductsPage";
+import LoadingPage from "../../components/Loading";
 
 const Products = () => {
-  //const { listProduct, loadingListProduct }= useProductsPage()
+  const { productsProps, paginateProps, sortProps, filterProps, onChangePagi } =
+    useProductsPage();
+
+  const { loadingListProduct } = productsProps || {};
+  if (loadingListProduct) {
+    return (
+      <main className="main">
+        <LoadingPage />
+      </main>
+    );
+  }
   return (
     <main className="main">
       <div
@@ -29,12 +41,12 @@ const Products = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-9">
-              <Toolbox />
-              <ListProducts />
-              <Pagination />
+              <Toolbox {...sortProps} />
+              <ListProducts {...productsProps} />
+              <Pagination {...paginateProps} />
             </div>
             <aside className="col-lg-3 order-lg-first">
-              <FilterProduct />
+              <FilterProduct {...filterProps} />
             </aside>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React from "react";
+import CheckedItem from "../../components/Checked";
 
-const FilterProduct = () => {
+const FilterProduct = ({ listCategory }) => {
   return (
     <div className="sidebar sidebar-shop">
       <div className="widget widget-clean">
@@ -25,71 +26,14 @@ const FilterProduct = () => {
         <div className="collapse show" id="widget-1">
           <div className="widget-body">
             <div className="filter-items filter-items-count">
-              <div className="filter-item">
-                <div className="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    className="custom-control-input"
-                    id="cat-1"
-                  />
-                  <label className="custom-control-label" htmlFor="cat-1">
-                    TV
-                  </label>
-                </div>
-                <span className="item-count">3</span>
-              </div>
-              <div className="filter-item">
-                <div className="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    className="custom-control-input"
-                    id="cat-2"
-                  />
-                  <label className="custom-control-label" htmlFor="cat-2">
-                    Computers
-                  </label>
-                </div>
-                <span className="item-count">0</span>
-              </div>
-              <div className="filter-item">
-                <div className="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    className="custom-control-input"
-                    id="cat-3"
-                  />
-                  <label className="custom-control-label" htmlFor="cat-3">
-                    Tablets &amp; Cell Phones
-                  </label>
-                </div>
-                <span className="item-count">4</span>
-              </div>
-              <div className="filter-item">
-                <div className="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    className="custom-control-input"
-                    id="cat-4"
-                  />
-                  <label className="custom-control-label" htmlFor="cat-4">
-                    Smartwatches
-                  </label>
-                </div>
-                <span className="item-count">2</span>
-              </div>
-              <div className="filter-item">
-                <div className="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    className="custom-control-input"
-                    id="cat-5"
-                  />
-                  <label className="custom-control-label" htmlFor="cat-5">
-                    Accessories
-                  </label>
-                </div>
-                <span className="item-count">2</span>
-              </div>
+              {listCategory?.length > 0 &&
+                listCategory?.map((item, index) => {
+                  return (
+                    <div className="filter-item" key={item?.id || index}>
+                      <CheckedItem label={item?.name} onChange={() => {}} />
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>

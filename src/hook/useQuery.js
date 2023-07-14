@@ -19,7 +19,7 @@ const useQuery = (promise, dependency = []) => {
       setLoading(false);
     }
   };
-  return { data, loading, error };
+  return { data, loading, error, refetch: fetchData };
 };
 
 export default useQuery;

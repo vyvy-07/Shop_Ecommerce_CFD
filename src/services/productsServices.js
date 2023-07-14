@@ -8,6 +8,6 @@ export const productsServices = {
     return axiosInstance.get(`/products/${slug}`);
   },
   getCategories(query = "") {
-    return axiosInstance.get(`/product-categories/${query}`);
+    return axiosInstance.get(`/product-categories${query}`);
   },
 };

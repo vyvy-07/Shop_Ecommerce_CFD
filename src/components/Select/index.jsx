@@ -9,8 +9,6 @@ const Select = ({
   onChange,
   ...selectProps //các tham số còn lại rest es6
 }) => {
-  //  console.log(options);
-  //  console.log(options.name);
   return (
     <>
       <label className="label">

@@ -1,3 +1,5 @@
-const useHeader = () => {};
+const useHeader = () => {
+  const hi = "hiii";
+};
 
 export default useHeader;

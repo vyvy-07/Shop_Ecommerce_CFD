@@ -2,13 +2,13 @@ import React from "react";
 import CheckedItem from "../../components/Checked";
 
 const FilterProduct = ({ listCategory, onChangeFilter }) => {
-  //const onChangeFilter = (id, checked) => {
-  //  if (checked) {
-  //    onChangeFilter?.(id);
-  //  } else {
-  //    onChangeFilter?.("");
-  //  }
-  //};
+  const onClick = (id, checked) => {
+    if (checked) {
+      onChangeFilter(id);
+    } else {
+      onChangeFilter("");
+    }
+  };
   return (
     <div className="sidebar sidebar-shop">
       <div className="widget widget-clean">
@@ -35,14 +35,20 @@ const FilterProduct = ({ listCategory, onChangeFilter }) => {
             <div className="filter-items filter-items-count">
               {listCategory?.length > 0 &&
                 listCategory?.map((item, index) => {
+                  // console.log('item', item?.id)
+
                   return (
                     <div className="filter-item" key={item?.id || index}>
                       <CheckedItem
                         label={item?.name || ""}
                         id={item?.id || index}
-                        //onClick={(value) =>
-                        //  //onChangeFilter(item?.id, value.target.checked)
-                        //}
+                        onClick={(value) => {
+                          console.log(
+                            "value.target.checked",
+                            value.target.checked
+                          );
+                          onClick(item?.id, value.target.checked);
+                        }}
                       />
                     </div>
                   );

@@ -42,37 +42,37 @@ const Profile = () => {
     }
   };
 
-  const [province, setProvince] = useState([]);
-  useEffect(() => {
-    const getProvince = async () => {
-      try {
-        const results = await addressServices.getProvince();
-        const dataProvince = results?.data?.results;
-        const _dataProvince = dataProvince.map((item) => {
-          return {
-            ...item,
-            name: item.province_name,
-            value: item.province_id,
-          };
-        });
-        setProvince(_dataProvince);
-      } catch (error) {
-        console.log("error :>> ", error);
-      }
-    };
-    getProvince();
-  }, [JSON.stringify(province)]);
+  // const [province, setProvince] = useState([]);
+  // useEffect(() => {
+  //   const getProvince = async () => {
+  //     try {
+  //       const results = await addressServices.getProvince();
+  //       const dataProvince = results?.data?.results;
+  //       const _dataProvince = dataProvince.map((item) => {
+  //         return {
+  //           ...item,
+  //           name: item.province_name,
+  //           value: item.province_id,
+  //         };
+  //       });
+  //       setProvince(_dataProvince);
+  //     } catch (error) {
+  //       console.log("error :>> ", error);
+  //     }
+  //   };
+  //   getProvince();
+  // }, [JSON.stringify(province)]);
 
-  useEffect(() => {
-    const getDistrict = async () => {
-      try {
-        const listDistrict = await addressServices.getDistrict("271");
-      } catch (error) {
-        console.log("error :>> ", error);
-      }
-    };
-    getDistrict();
-  }, []);
+  // useEffect(() => {
+  //   const getDistrict = async () => {
+  //     try {
+  //       const listDistrict = await addressServices.getDistrict("271");
+  //     } catch (error) {
+  //       console.log("error :>> ", error);
+  //     }
+  //   };
+  //   getDistrict();
+  // }, []);
 
   return (
     <div
@@ -137,12 +137,12 @@ const Profile = () => {
         </div>
         <div className="row">
           <div className="col-sm-4">
-            <Select
+            {/* <Select
               label="Province/City"
               required
               {...register("select", { required: "vui long chon" })}
               options={province}
-            />
+            /> */}
 
             {/*<label>Province/City *</label>
             <div className="select-custom">
@@ -155,7 +155,7 @@ const Profile = () => {
               </select>
             </div>*/}
           </div>
-          <div className="col-sm-4">
+          {/* <div className="col-sm-4">
             <label>District/Town *</label>
             <div className="select-custom">
               <select className="form-control form-select" id="district">
@@ -170,14 +170,14 @@ const Profile = () => {
                 <option selected />
               </select>
             </div>
-          </div>
+          </div> */}
         </div>
-        <Input
+        {/* <Input
           label="Street address"
           required
           {...register("street", { required: "Please fill in this field!" })}
           error={errors?.street?.message || ""}
-        />
+        /> */}
         <Input
           label="Current password (leave blank to leave unchanged)"
           type="password"

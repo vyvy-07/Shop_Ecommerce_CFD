@@ -4,7 +4,6 @@ import { PATHS } from "../../constant/path";
 import { authActions } from "../../store/reducers/authReducer";
 import { useAuthen } from "../AuthenContext";
 import ButtonItem from "../Button";
-import LoadingPage from "../Loading";
 
 const Header = () => {
   const { openModal } = useAuthen();

@@ -9,6 +9,7 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { AuthService } from "../../services/authServices";
 import { LOCAL_STOGARE } from "../../constant/localStogare";
+import { getCard } from "../../store/reducers/cartsReducer";
 const AuthenContext = createContext({});
 
 export const AuthenProvider = ({ children }) => {
@@ -75,7 +76,11 @@ export const AuthenProvider = ({ children }) => {
     }
   };
   useEffect(() => {
-    onGetProfile();
+    if (token) {
+      console.log("ok");
+      onGetProfile();
+      dispatch(getCard());
+    }
   }, []);
 
   return (

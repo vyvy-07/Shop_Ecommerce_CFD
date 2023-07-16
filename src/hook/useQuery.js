@@ -7,9 +7,11 @@ const useQuery = (promise, dependency = []) => {
   useEffect(() => {
     fetchData();
   }, dependency);
-  const fetchData = async () => {
+
+// nhận vào 1 query khác 
+  const fetchData = async (query) => {
     try {
-      const res = await promise();
+      const res = await promise(query);
       setData(res?.data?.data);
       setLoading(false);
     } catch (error) {

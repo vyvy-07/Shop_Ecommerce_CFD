@@ -1,12 +1,14 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Breadcrumb from "../../components/Breadcrumb";
+import LoadingPage from "../../components/Loading";
+import Pagination from "../../components/Pagination";
+import { LOCAL_STOGARE } from "../../constant/localStogare";
 import { PATHS } from "../../constant/path";
 import FilterProduct from "./FilterProduct";
 import ListProducts from "./ListProducts";
-import Pagination from "../../components/Pagination";
 import Toolbox from "./Toolbox";
 import useProductsPage from "./useProductsPage";
-import LoadingPage from "../../components/Loading";
 
 const Products = () => {
   const { productsProps, paginateProps, sortProps, filterProps, onChangePagi } =
@@ -20,6 +22,7 @@ const Products = () => {
       </main>
     );
   }
+
   return (
     <main className="main">
       <div

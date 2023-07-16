@@ -22,9 +22,7 @@ const LoginForm = ({ onLogin }) => {
       onLogin?.(data);
       if (click) {
         const { email, password } = data;
-        console.log("data :>> ", email);
         sessionStorage.setItem(SESSION_STOGARE.email, email);
-        sessionStorage.setItem(SESSION_STOGARE.password, password);
       }
     }
   };

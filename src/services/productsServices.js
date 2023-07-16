@@ -2,6 +2,7 @@ import axiosInstance from "../utils/axiosInstance";
 
 export const productsServices = {
   getListProduct(query = "") {
+    console.log('query', query)
     return axiosInstance.get(`/products${query}`);
   },
   getProductInfo(slug) {

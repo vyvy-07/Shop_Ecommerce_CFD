@@ -13,10 +13,11 @@ const CheckedItem = ({
       <input
         type="checkbox"
         className="custom-control-input"
-        id={id || checkbox || "signin-remember"}
+        id={id||"signin-remember"}
         onClick={onClick}
+        {...propsCheck}
       />
-      <label className="custom-control-label" htmlFor="signin-remember">
+      <label className="custom-control-label" htmlFor={id||"signin-remember"}>
         {label}
         {children || ""}
       </label>

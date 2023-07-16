@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import useQuery from "../../hook/useQuery";
 import { productsServices } from "../../services/productsServices";
 import { useLocation, useSearchParams } from "react-router-dom";
@@ -19,19 +19,30 @@ const useProductsPage = () => {
     error: errorProduct,
     refetch: refetchProduct,
   } = useQuery((query) =>
+    // chạy lần đầu thì có limit=9
     productsServices.getListProduct(query || `?limit=${LIMIT_PRODUCTS}`)
   );
   const listProduct = dataProducts?.products || [];
   const paginationProducts = dataProducts?.pagination || {};
-
   const productsProps = {
     loadingListProduct,
     errorProduct,
     listProduct,
   };
+
+  // khi search là cái querystring thay đổi mới recallapi
+  // sử dụng useRef để giữ lại gtri hiện tại
+  const currentSearch = useRef(search);
   useEffect(() => {
-    refetchProduct?.(search);
+    console.log("search", search);
+    //search yêu cầu "search" khác search hiện tại thì sẽ thực thi
+    if (search !== currentSearch.current) {
+      refetchProduct?.(search);
+      // khi thực thi phải gán lại gtri cũ bằng gtri mới thì mới thực thi dc
+      currentSearch.current = search;
+    }
   }, [search]);
+
   //upDateQueryString
   const upDateQueryString = (queryObj) => {
     const newQueryString = queryString.stringify({
@@ -43,7 +54,6 @@ const useProductsPage = () => {
   //onChangePagi
   const onChangePagi = (page) => {
     upDateQueryString({ ...queryObj, page: page });
-    console.log("page :>> ", page);
   };
   // trả về là string nên chuyển đổi thành Number!!
   const paginateProps = {
@@ -84,11 +94,18 @@ const useProductsPage = () => {
     error: errorCategory,
   } = useQuery(() => productsServices.getCategories());
   let listCategory = dataCategories?.products;
-  //console.log("listCategory :>> ", listCategory);
+
+  const onChangeFilter = (id) => {
+    console.log("id", id);
+    upDateQueryString({ ...queryObj, category: id });
+    // const {data:filterData,loading:loadFilter
+    //   ,error:errorFlter}=useQuery((id)=>productsServices.getCategories(id))
+  };
   const filterProps = {
     loadCategory,
     listCategory,
     errorCategory,
+    onChangeFilter,
   };
   return {
     listCategory,

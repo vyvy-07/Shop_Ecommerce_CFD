@@ -21,7 +21,7 @@ const Mainlayouts = () => {
     //document.body.appendChild(script);
     const myTime = setTimeout(() => {
       MainJS();
-    }, 500);
+    }, 400);
 
     return () => clearTimeout(myTime);
   }, [pathname]);

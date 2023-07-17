@@ -1,10 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  authActions,
-  getProfile,
-  login,
-} from "../../store/reducers/authReducer";
+import { getProfile, login } from "../../store/reducers/authReducer";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { AuthService } from "../../services/authServices";
@@ -36,6 +32,7 @@ export const AuthenProvider = ({ children }) => {
           password: data?.password,
         };
         const res = await dispatch(login(payload));
+
         const profileData = unwrapResult(res);
         if (profileData?.id) {
           closeModal();

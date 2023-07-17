@@ -16,21 +16,9 @@ const RegisterForm = ({ onRegister }) => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    //if (data) {
-    //  const payload = {
-    //    firstName: "",
-    //    lastName: data?.lastName,
-    //    email: data?.email,
-    //    password: data.password,
-    //  };
-    //}
     onRegister?.(data);
   };
-  const handleChecked = (e) => {
-    e.preventDefault();
-    message.error("Please agree to the privacy policy!");
-    console.log("Please agree to the privacy policy!");
-  };
+
   return (
     <div
       className="tab-pane fade show active"
@@ -59,6 +47,8 @@ const RegisterForm = ({ onRegister }) => {
             required
             {...register("password", {
               required: "Required field",
+              validate: (value) =>
+                value.length >= 6 || "Please at least 6 characters",
             })}
             error={errors?.password?.message}
           />
@@ -67,6 +57,7 @@ const RegisterForm = ({ onRegister }) => {
         <div className="form-footer">
           <button
             disabled={!watch("check")}
+            style={{ color: !watch("check") && "grey" }}
             type="submit"
             className="btn btn-outline-primary-2"
           >
@@ -76,7 +67,9 @@ const RegisterForm = ({ onRegister }) => {
 
           <CheckedItem
             label="I agree to the "
-            onClick={() => setValue("check", !watch("check"))}
+            onClick={() => {
+              return setValue("check", !watch("check"));
+            }}
           >
             <Link to={PATHS.PRIVACY}>privacy policy</Link>{" "}
             <span style={{ color: !check && "red" }}>*</span>

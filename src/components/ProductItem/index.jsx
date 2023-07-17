@@ -1,10 +1,21 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PATHS } from "../../constant/path";
 import { Image } from "antd";
 import { formatCurrency } from "../../utils/format";
+import { LOCAL_STOGARE } from "../../constant/localStogare";
+import { useAuthen } from "../AuthenContext";
 
-const ProductItem = ({ name, price, slug, images, rating }) => {
+const ProductItem = ({ name, price, slug, images, rating, id }) => {
+  const token = localStorage.getItem(LOCAL_STOGARE.token);
+  const { openModal } = useAuthen();
+
+  const handleAddToCard = () => {
+    if (!token) {
+      openModal();
+    }
+  };
+  // };
   return (
     <div className="product product-2" style={{ minHeight: 405 }}>
       <figure className="product-media">
@@ -34,7 +45,11 @@ const ProductItem = ({ name, price, slug, images, rating }) => {
           </a>
         </div>
         <div className="product-action product-action-dark">
-          <a href="#" className="btn-product btn-cart" title="Add to cart">
+          <a
+            onClick={handleAddToCard}
+            className="btn-product btn-cart"
+            title="Add to cart"
+          >
             <span>add to cart</span>
           </a>
         </div>

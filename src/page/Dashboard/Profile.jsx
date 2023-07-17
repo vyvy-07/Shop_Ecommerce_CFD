@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Input } from "../../components/InputItem";
-import ButtonItem from "../../components/Button";
 import { useDispatch, useSelector } from "react-redux";
-import useQuery from "../../hook/useQuery";
+import ButtonItem from "../../components/Button";
+import { Input } from "../../components/InputItem";
 import { AuthService } from "../../services/authServices";
 import { authActions } from "../../store/reducers/authReducer";
-import { addressServices } from "../../services/addressServices";
-import Select from "../../components/Select";
 
 const Profile = () => {
   const { profile } = useSelector((state) => state.auth);

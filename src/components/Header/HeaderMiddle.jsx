@@ -4,35 +4,36 @@ import { Link, NavLink } from "react-router-dom";
 import { PATHS } from "../../constant/path";
 import { formatCurrency } from "../../utils/format";
 import { ExclamationCircleFilled } from "@ant-design/icons";
+import { Modal } from "antd";
+import { useDispatch } from "react-redux";
 const HeaderMiddle = ({
   subTotal,
   products,
   totalProduct,
   onRemoveProduct,
 }) => {
-  const handleOnClick = () => {
-    console.log("hehe");
-  };
-
-  const showConfirm = () => {
-    console.log("hehe");
-
-    // confirm({
-    //   title: "Do you Want to delete these items?",
-    //   icon: <ExclamationCircleFilled />,
-    //   content: "Some descriptions",
-    //   onOk() {
-    //     console.log("OK");
-    //     onRemoveProduct();
-    //   },
-    //   onCancel() {
-    //     console.log("Cancel");
-    //   },
-    // });
-  };
-
-  console.log("first", products);
   const listProduct = products?.products;
+  const { confirm } = Modal;
+  const dispatch = useDispatch();
+  const showConfirm = (item) => {
+    confirm({
+      title: "Do you Want to delete these items?",
+      icon: <ExclamationCircleFilled />,
+      content: (
+        <>
+          <p>{`${item?.name}`}</p>
+          <p>{`${item?.quantity} * $${formatCurrency(item?.price)}`}</p>
+        </>
+      ),
+      onOk() {
+        onRemoveProduct?.(item?.id);
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  };
+
   return (
     <div className="header-middle sticky-header">
       <div className="container">
@@ -148,11 +149,14 @@ const HeaderMiddle = ({
                           </figure>
                           <a
                             // href="#"
-                            onClick={showConfirm({ ...item })}
                             className="btn-remove"
                             title="Remove Product"
+                            onClick={() => showConfirm({ ...item })}
                           >
-                            <i className="icon-close" />
+                            <i
+                              className="icon-close"
+                              // onClick={showConfirm({ ...item })}
+                            />
                           </a>
                         </div>
                       );
@@ -160,7 +164,7 @@ const HeaderMiddle = ({
                   : "No product in there!"}
               </div>
               <div className="dropdown-cart-total">
-                <span>Total: {totalProduct}</span>
+                <span>Total: {totalProduct || 0}</span>
                 <span className="cart-total-price">
                   ${formatCurrency(subTotal)}
                 </span>

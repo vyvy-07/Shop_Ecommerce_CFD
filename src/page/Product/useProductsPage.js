@@ -12,7 +12,7 @@ const useProductsPage = () => {
   const [_, setUseSearchParams] = useSearchParams();
 
   //fetching api
-  const LIMIT_PRODUCTS = 9;
+  const LIMIT_PRODUCTS = 6;
   const {
     data: dataProducts,
     loading: loadingListProduct,
@@ -98,8 +98,6 @@ const useProductsPage = () => {
   const onChangeFilter = (id) => {
     console.log("id", id);
     upDateQueryString({ ...queryObj, category: id });
-    // const {data:filterData,loading:loadFilter
-    //   ,error:errorFlter}=useQuery((id)=>productsServices.getCategories(id))
   };
   const filterProps = {
     loadCategory,

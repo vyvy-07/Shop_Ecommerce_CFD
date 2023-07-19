@@ -28,19 +28,20 @@ export const { reducer: cartReducer, actions: cartActions } = createSlice({
     });
     builder.addCase(getCard.rejected, (state) => {
       state.getStatus = THUNK_STATUS.reject;
+      state.cardInfo = {};
     });
 
     // update card
-    // builder.addCase(addCase.pending, (state) => {
-    //   state.updateStatus = THUNK_STATUS.pending;
-    // });
-    // builder.addCase(addCase.fullfield, (state) => {
-    //   state.updateStatus = THUNK_STATUS.fullfield;
-    //   // state.cardInfo = action.payload;
-    // });
-    // builder.addCase(addCase.rejected, (state) => {
-    //   state.updateStatus = THUNK_STATUS.reject;
-    // });
+
+    builder.addCase(updateCard.pending, (state) => {
+      state.updateStatus = THUNK_STATUS.pending;
+    });
+    builder.addCase(updateCard.fulfilled, (state) => {
+      state.updateStatus = THUNK_STATUS.fullfield;
+    });
+    builder.addCase(updateCard.rejected, (state) => {
+      state.updateStatus = THUNK_STATUS.reject;
+    });
   },
 });
 export const { clearCard } = cartActions;
@@ -58,7 +59,10 @@ export const getCard = createAsyncThunk("cart/get", async (_, thunAPI) => {
       );
     }, 0);
     // tính tổng tiền có mã giãm giá
-    const total = subTotal - subTotal * ((cardInfo?.discound || 0) / 100);
+    const total =
+      subTotal -
+      subTotal * ((cardInfo?.discound || 0) / 100) +
+      (cardInfo?.shipping?.price || 0);
     // số lượng sản phẩm
     const totalProduct =
       cardInfo?.quantity?.reduce(
@@ -81,5 +85,25 @@ export const getCard = createAsyncThunk("cart/get", async (_, thunAPI) => {
     throw error;
   }
 });
-
+export const updateCard = createAsyncThunk(
+  "cart/update",
+  async (actionPayload, thunkApi) => {
+    try {
+      const res = await cardServices.updateCard({
+        ...actionPayload,
+        subTotal: 0,
+        total: 0,
+        totalProduct: ["string"],
+        discount: 0,
+        paymentMethod: "string",
+      });
+      const cardInfo = res?.data?.data;
+      thunkApi.dispatch(getCard());
+      thunkApi.fulfillWithValue(cardInfo);
+      return cardInfo;
+    } catch (error) {
+      thunkApi.rejectWithValue(error);
+    }
+  }
+);
 export default cartReducer;

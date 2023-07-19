@@ -1,21 +1,64 @@
-import React from "react";
+import { Image, message } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { PATHS } from "../../constant/path";
-import { Image } from "antd";
-import { formatCurrency } from "../../utils/format";
 import { LOCAL_STOGARE } from "../../constant/localStogare";
+import { PATHS } from "../../constant/path";
+import THUNK_STATUS from "../../constant/thunkStatus";
+import { formatCurrency } from "../../utils/format";
 import { useAuthen } from "../AuthenContext";
+import { updateCard } from "../../store/reducers/cartsReducer";
+import { CART_MESSAGE, GENERAL_MESSAGE } from "../../constant/message";
 
 const ProductItem = ({ name, price, slug, images, rating, id }) => {
   const token = localStorage.getItem(LOCAL_STOGARE.token);
   const { openModal } = useAuthen();
-
-  const handleAddToCard = () => {
+  const dispatch = useDispatch();
+  const { cardInfo, updateStatus } = useSelector((state) => state.cart);
+  const handleAddToCard = async () => {
     if (!token) {
       openModal();
+    } else if (id && updateStatus != THUNK_STATUS.pending) {
+      try {
+        let payload = {};
+        if (cardInfo?.id) {
+          const findId = cardInfo?.product?.findIndex(
+            (item) => item?.id === id
+          );
+          const newProduct = cardInfo?.product?.map((item) => {
+            return item?.id;
+          });
+          const newQuantity = [...cardInfo?.quantity];
+          if (findId > -1) {
+            newQuantity[findId] = (Number(newQuantity[findId]) + 1).toString();
+          } else {
+            newProduct.push(id);
+            newQuantity.push("1");
+          }
+          payload = {
+            ...cardInfo,
+            product: newProduct,
+            quantity: newQuantity,
+          };
+        } else {
+          payload = {
+            product: [id],
+            quantity: ["1"],
+            subTotal: 0,
+            total: 0,
+            totalProduct: ["string"],
+            discount: 0,
+            paymentMethod: "string",
+          };
+        }
+        const dataUpdate = await dispatch(updateCard(payload)).unwrap();
+        if (dataUpdate?.id) {
+          message.success(CART_MESSAGE.success);
+        }
+      } catch (error) {
+        message.error(GENERAL_MESSAGE.fail);
+      }
     }
   };
-  // };
   return (
     <div className="product product-2" style={{ minHeight: 405 }}>
       <figure className="product-media">

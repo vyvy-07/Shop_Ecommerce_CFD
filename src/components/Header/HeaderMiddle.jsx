@@ -14,7 +14,6 @@ const HeaderMiddle = ({
 }) => {
   const listProduct = products?.products;
   const { confirm } = Modal;
-  const dispatch = useDispatch();
   const showConfirm = (item) => {
     confirm({
       title: "Do you Want to delete these items?",

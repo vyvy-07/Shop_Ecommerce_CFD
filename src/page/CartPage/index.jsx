@@ -4,7 +4,7 @@ import ListCart from "./ListCart";
 import useCartPage from "./useCartPage";
 
 const CartPage = () => {
-  const { cartTotal } = useCartPage();
+  const { cartTotal, listCart } = useCartPage();
   return (
     <main className="main">
       <div
@@ -34,7 +34,7 @@ const CartPage = () => {
         <div className="cart">
           <div className="container">
             <div className="row">
-              <ListCart />
+              <ListCart {...listCart} />
               <CartTotal {...cartTotal} />
             </div>
           </div>

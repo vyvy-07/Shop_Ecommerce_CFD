@@ -1,15 +1,7 @@
 import React, { forwardRef } from "react";
 
 const Inputs = (
-  {
-    label,
-    renderInput = undefined,
-    className,
-    required,
-    error,
-    onChange,
-    ...props
-  },
+  { label, renderInput = undefined, className, required, error, ...props },
   ref
 ) => {
   return (

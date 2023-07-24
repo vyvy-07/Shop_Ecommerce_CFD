@@ -1,6 +1,38 @@
 import React from "react";
-
-const ListCart = () => {
+import { formatCurrency } from "../../utils/format";
+import { Modal } from "antd";
+import { ExclamationCircleFilled } from "@ant-design/icons";
+import QuantityInput from "../../components/QuantityInput";
+const ListCart = ({
+  product,
+  handleRemoveCart,
+  newListCard,
+  onUpdateQuantity,
+}) => {
+  const { confirm } = Modal;
+  const onUpdate = (e) => {
+    console.log("first", e.target.value);
+  };
+  const showConfirm = (data) => {
+    confirm({
+      title: "Do you Want to delete these items?",
+      icon: <ExclamationCircleFilled />,
+      content: (
+        <>
+          <p>${data?.name}</p>
+          <p>
+            {data?.quantity} * ${formatCurrency(data?.price)}
+          </p>
+        </>
+      ),
+      onOk() {
+        handleRemoveCart(data?.id);
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  };
   return (
     <div className="col-lg-9">
       <table className="table table-cart table-mobile">
@@ -14,82 +46,55 @@ const ListCart = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="product-col">
-              <div className="product">
-                <figure className="product-media">
-                  <a href="#">
-                    <img
-                      src="assets/images/demos/demo-3/products/product-6.jpg"
-                      alt="Product image"
+          {newListCard?.length > 0 &&
+            newListCard?.map((item, index) => {
+              return (
+                <tr key={item?.id || index}>
+                  <td className="product-col">
+                    <div className="product">
+                      <figure className="product-media">
+                        <a href="#">
+                          <img
+                            src={
+                              item?.images ||
+                              "assets/images/demos/demo-3/products/product-6.jpg"
+                            }
+                            alt="Product image"
+                          />
+                        </a>
+                      </figure>
+                      <h3 className="product-title">
+                        <a href="#">{item?.name}</a>
+                      </h3>
+                    </div>
+                  </td>
+                  <td className="price-col">${formatCurrency(item?.price)}</td>
+                  <td className="quantity-col">
+                    <QuantityInput
+                      className="cart-product-quantity"
+                      value={item?.quantity}
+                      onChange={(value) => {
+                        onUpdateQuantity?.(value, index);
+                      }}
                     />
-                  </a>
-                </figure>
-                <h3 className="product-title">
-                  <a href="#">Beige knitted elastic runner shoes</a>
-                </h3>
-              </div>
-            </td>
-            <td className="price-col">$84.00</td>
-            <td className="quantity-col">
-              <div className="cart-product-quantity">
-                <input
-                  type="number"
-                  className="form-control"
-                  defaultValue={1}
-                  min={1}
-                  max={10}
-                  step={1}
-                  data-decimals={0}
-                  required
-                />
-              </div>
-            </td>
-            <td className="total-col">$84.00</td>
-            <td className="remove-col">
-              <button className="btn-remove">
-                <i className="icon-close" />
-              </button>
-            </td>
-          </tr>
-          {/* <tr>
-            <td className="product-col">
-              <div className="product">
-                <figure className="product-media">
-                  <a href="#">
-                    <img
-                      src="assets/images/demos/demo-3/products/product-2-2.jpg"
-                      alt="Product image"
-                    />
-                  </a>
-                </figure>
-                <h3 className="product-title">
-                  <a href="#">Blue utility pinafore denim dress</a>
-                </h3>
-              </div>
-            </td>
-            <td className="price-col">$76.00</td>
-            <td className="quantity-col">
-              <div className="cart-product-quantity">
-                <input
-                  type="number"
-                  className="form-control"
-                  defaultValue={1}
-                  min={1}
-                  max={10}
-                  step={1}
-                  data-decimals={0}
-                  required
-                />
-              </div>
-            </td>
-            <td className="total-col">$76.00</td>
-            <td className="remove-col">
-              <button className="btn-remove">
-                <i className="icon-close" />
-              </button>
-            </td>
-          </tr> */}
+                  </td>
+                  <td className="total-col">
+                    $
+                    {formatCurrency(
+                      Number(item?.price || 0) * Number(item?.quantity || 0)
+                    )}
+                  </td>
+                  <td className="remove-col">
+                    <button className="btn-remove">
+                      <i
+                        className="icon-close"
+                        onClick={() => showConfirm({ ...item })}
+                      />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
       <div className="cart-bottom">

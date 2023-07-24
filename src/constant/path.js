@@ -5,13 +5,13 @@ const MODAL = "/modal";
 const DASHBOARD = "/dashboard";
 
 export const PATHS = {
+  INDEX: "/",
   MODAL: MODAL,
   MODAL_REGISTER: "/modal/register",
 
   ABOUT: "/about",
   BLOG: BLOG,
   BLOG_DETAIL: BLOG + "/:slug",
-  INDEX: "/",
   CHECK: CHECK,
   CHECK_SUCCESS: CHECK + "/:slug",
   PRODUCTS: PRODUCTS,

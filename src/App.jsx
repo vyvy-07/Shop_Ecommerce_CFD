@@ -41,12 +41,12 @@ function App() {
             </Route>
             <Route path={PATHS.CHECK_SUCCESS} element={<CheckoutSuccess />} />
             <Route path={PATHS.CHECK} element={<Checkout />} />
+            <Route path={PATHS.CART} element={<CartPage />} />
           </Route>
 
           <Route path={PATHS.ABOUT} element={<AboutPage />} />
           <Route path={PATHS.BLOG} element={<BlogPage />} />
           <Route path={PATHS.BLOG_DETAIL} element={<BlogSingle />} />
-          <Route path={PATHS.CART} element={<CartPage />} />
           <Route path={PATHS.CONTACT} element={<ContactPage />} />
           <Route path={PATHS.FAQ} element={<FaqPage />} />
           <Route path={PATHS.RETURN} element={<Returns />} />

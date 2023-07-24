@@ -1,5 +1,5 @@
 import { Select } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonItem from "../../components/Button";
@@ -13,7 +13,6 @@ import { LOCAL_STOGARE } from "../../constant/localStogare";
 
 const Profile = () => {
   const { profile } = useSelector((state) => state.auth);
-  console.log("profile", profile);
   const dispatch = useDispatch();
 
   const [district, setDistrict] = useState([]);
@@ -23,6 +22,14 @@ const Profile = () => {
   const [ward, setward] = useState("");
   const [idWard, setIdWard] = useState("");
 
+  const emailRef = useRef();
+
+  const onChange = () => {
+    console.log(emailRef.current?.value);
+  };
+
+  console.log(emailRef);
+
   const {
     register,
     setValue,
@@ -31,8 +38,6 @@ const Profile = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    console.log("data", data);
-    console.log(" data?.district", data?.district);
     const newProfile = {
       firstName: data?.firstName,
       lastName: "",
@@ -108,7 +113,9 @@ const Profile = () => {
     }
   };
 
-  // const handleGetWard = (id) => {};
+  const handleGetWard = (id) => {
+    getDataWard(id);
+  };
 
   useEffect(() => {
     if (profile) {
@@ -224,6 +231,8 @@ const Profile = () => {
                     field.onChange(e);
                     setIdProvince(e);
                     setIdDistrict(null);
+                    setIdWard(null);
+
                     getDistrict(e);
                   }}
                   showSearch
@@ -261,6 +270,7 @@ const Profile = () => {
                     setIdDistrict(e);
                     handleGetWard(e);
                     getDataWard(e);
+                    setIdWard(null);
                   }}
                   value={idDistrict || null}
                   showSearch

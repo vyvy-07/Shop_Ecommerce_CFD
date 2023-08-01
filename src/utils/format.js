@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export const formatCurrency = (number = 0) => {
   const formatNumber = number.toLocaleString(undefined, {
     minimumFractionDigits: 0,
@@ -6,9 +8,11 @@ export const formatCurrency = (number = 0) => {
   return formatNumber.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 };
 
-// export const formatDay = (number = 0, type = "MM-DD-YYYY") => {
-//   const date = number.moment().format();
-//   console.log("date", date);
+// export const formatDay = (
+//   day = "2023-06-29T00:00:00.000Z",
+//   type = "MM/DD/YYYY"
+// ) => {
+//   const formatDate = dayjs(day || "23/06/2002").format("MM/DD/YYYY");
 // };
 
 export const removeAccents = (str) => {

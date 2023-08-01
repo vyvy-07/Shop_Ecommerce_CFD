@@ -2,7 +2,6 @@ import cn from "classnames";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { useAuthen } from "../AuthenContext";
-import { LOCAL_STOGARE } from "../../constant/localStogare";
 const ModalLayouts = () => {
   const { isOpenAuthenModal, closeModal, tab, setTab, ...props } = useAuthen();
 

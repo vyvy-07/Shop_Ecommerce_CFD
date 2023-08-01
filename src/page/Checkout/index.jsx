@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Summary from "./Summary";
 import FormCheckout from "./FormCheckout";
 import useCheckout from "./useCheckout";
 import { Input } from "../../components/InputItem";
+import DiscountDashboard from "./DiscountDashboard";
+import Breadcrumb from "../../components/Breadcrumb";
+import { PATHS } from "../../constant/path";
+import { Link, NavLink, Navigate } from "react-router-dom";
 
 const Checkout = () => {
-  const { summary, formCheckout, cardInfo } = useCheckout();
-  const { register, errors } = formCheckout || {};
+  const { summary, cardInfo, formCheckout, form, discountDashboard } =
+    useCheckout();
+  const {
+    register,
+    formState: { errors },
+  } = form || {};
+
   return (
     <main className="main">
       <div
@@ -17,51 +26,21 @@ const Checkout = () => {
           <h1 className="page-title">Checkout</h1>
         </div>
       </div>
-      <nav aria-label="breadcrumb" className="breadcrumb-nav">
-        <div className="container">
-          <ol className="breadcrumb">
-            <li className="breadcrumb-item">
-              <a href="index.html">Home</a>
-            </li>
-            <li className="breadcrumb-item">
-              <a href="product.html">Product</a>
-            </li>
-            <li className="breadcrumb-item active" aria-current="page">
-              Checkout
-            </li>
-          </ol>
-        </div>
-      </nav>
+
+      <Breadcrumb>
+        <Breadcrumb.Item>
+          <Link to={PATHS.INDEX}>Home</Link>{" "}
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Link to={PATHS.PRODUCTS}>Product</Link>{" "}
+        </Breadcrumb.Item>
+        <Breadcrumb.Item isActive> Checkout</Breadcrumb.Item>
+      </Breadcrumb>
+
       <div className="page-content">
         <div className="checkout">
           <div className="container">
-            <div
-              className="coupon"
-              style={{ display: "flex", maxHeight: "40px" }}
-            >
-              <div className="checkout-discount" style={{ width: "340px" }}>
-                <div action="#">
-                  <Input
-                    required
-                    id="checkout-discount-input"
-                    {...register("discount", {
-                      // required: "Please fill in this field!",
-                    })}
-                    error={errors?.discount?.message || ""}
-                  />
-
-                  <label
-                    htmlFor="checkout-discount-input"
-                    className="text-truncate"
-                  >
-                    Have a coupon? <span>Click here to enter your code</span>
-                  </label>
-                </div>
-              </div>
-              <button className="btn btn-primary">
-                <span>{"ADD COUPON"}</span>
-              </button>
-            </div>
+            <DiscountDashboard {...discountDashboard} />
             <div action="#" className="checkout-form">
               <div className="row">
                 <FormCheckout {...formCheckout} />

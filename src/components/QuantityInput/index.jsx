@@ -3,9 +3,10 @@ import { styled } from "styled-components";
 const InputStyled = styled.input`
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
+    padding: 0;
+    text-align: center;
     -webkit-appearance: none;
     margin: 0;
-    display: none;
   }
   -moz-appearance: textfield;
 `;

@@ -12,6 +12,9 @@ export const { reducer: cartReducer, actions: cartActions } = createSlice({
   initialState,
   name: "cart",
   reducers: {
+    updateCouponCard: (state, action) => {
+      state.cardInfo = action?.payload || state.cardInfo;
+    },
     clearCard: (state) => {
       state.cardInfo = {};
     },
@@ -44,7 +47,7 @@ export const { reducer: cartReducer, actions: cartActions } = createSlice({
     });
   },
 });
-export const { clearCard } = cartActions;
+export const { clearCard, updateCouponCard } = cartActions;
 
 export const getCard = createAsyncThunk("cart/get", async (_, thunAPI) => {
   try {

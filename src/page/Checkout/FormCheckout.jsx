@@ -5,14 +5,13 @@ import { useSelector } from "react-redux";
 import { Controller } from "react-hook-form";
 import { Select } from "antd";
 
-const FormCheckout = ({
-  discount,
-  register,
-  setValue,
-  handleSubmit,
-  control,
-  formState: { errors },
-}) => {
+const FormCheckout = ({ form }) => {
+  const {
+    register,
+    setValue,
+    control,
+    formState: { errors },
+  } = form || {};
   const { profile } = useSelector((state) => state.auth);
 
   const [district, setDistrict] = useState([]);
@@ -83,13 +82,13 @@ const FormCheckout = ({
       console.log("error :>> ", error);
     }
   };
-  useEffect(() => {
-    if (profile) {
-      for (const field in profile) {
-        setValue(field, profile[field]);
-      }
-    }
-  }, [profile]);
+  // useEffect(() => {
+  //   if (profile) {
+  //     for (const field in profile) {
+  //       setValue(field, profile[field]);
+  //     }
+  //   }
+  // }, [profile]);
   useEffect(() => {
     getProvince();
     if (profile?.province) {
@@ -104,7 +103,6 @@ const FormCheckout = ({
       setIdWard(profile.ward);
     }
   }, [profile]);
-
   return (
     <div className="col-lg-9">
       <h2 className="checkout-title">Billing Details</h2>
@@ -113,10 +111,10 @@ const FormCheckout = ({
           <Input
             label="Full Name"
             required
-            {...register("firstName", {
+            {...register("fullName", {
               required: "Please fill in this field!",
             })}
-            error={errors?.firstName?.message || ""}
+            error={errors?.fullName?.message || ""}
           />
         </div>
         <div className="col-sm-4">
@@ -157,7 +155,7 @@ const FormCheckout = ({
             render={({ field }) => (
               // sending integer instead of string.
               <Select
-                {...field}
+                value={idProvince || null}
                 onChange={(e) => {
                   field.onChange(e);
                   setIdProvince(e);
@@ -194,7 +192,6 @@ const FormCheckout = ({
             render={({ field }) => (
               // sending integer instead of string.
               <Select
-                {...field}
                 onChange={(e) => {
                   field.onChange(e);
                   setIdDistrict(e);
@@ -228,7 +225,6 @@ const FormCheckout = ({
             render={({ field }) => (
               // sending integer instead of string.
               <Select
-                {...field}
                 onChange={(id) => {
                   field.onChange(id);
                   setIdWard(id);
@@ -252,23 +248,30 @@ const FormCheckout = ({
           />
         </div>
       </div>
-
       <Input
-        label="Street address *"
+        label="Street address "
         required
         {...register("street", {
           required: "Please fill in this field!",
         })}
         error={errors?.street?.message || ""}
       />
-      <label>Order notes (optional)</label>
-      <textarea
-        className="form-control"
-        cols={30}
-        rows={4}
-        placeholder="Notes about your order, e.g. special notes for delivery"
-        defaultValue={""}
+      <Input
+        {...register("note")}
+        label="Order notes (optional)"
+        renderInput={(inputProps) => {
+          return (
+            <textarea
+              {...inputProps}
+              className="form-control"
+              cols={30}
+              rows={4}
+              placeholder="Notes about your order, e.g. special notes for delivery"
+            />
+          );
+        }}
       />
+
       <div className="custom-control custom-checkbox">
         <input
           type="checkbox"

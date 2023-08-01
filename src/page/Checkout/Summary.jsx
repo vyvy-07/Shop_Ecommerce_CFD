@@ -1,7 +1,9 @@
 import React from "react";
+import cn from "classnames";
 import { formatCurrency } from "../../utils/format";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { PATHS } from "../../constant/path";
+import { PAYMENTMETHOD } from "../../constant/globalConstant";
 
 const Summary = ({
   id,
@@ -9,11 +11,15 @@ const Summary = ({
   total,
   listProduct,
   shipping,
-  handleSubmit,
+
+  onChangePayment,
+  paymentMethod,
+  onPlaceOrder,
 }) => {
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  console.log("paymentMethod", paymentMethod);
+  const isCash = paymentMethod === PAYMENTMETHOD.cash;
+  console.log("isCash", isCash);
+  const isCard = paymentMethod === PAYMENTMETHOD.card;
   return (
     <aside className="col-lg-3">
       <div className="summary">
@@ -27,9 +33,9 @@ const Summary = ({
           </thead>
           <tbody>
             {listProduct?.length > 0 &&
-              listProduct?.map((item) => {
+              listProduct?.map((item, index) => {
                 return (
-                  <tr>
+                  <tr key={item?.id || index}>
                     <td>
                       <a href="#">
                         {item?.name} * {item?.quantity}
@@ -78,25 +84,21 @@ const Summary = ({
         </table>
         <div className="accordion-summary" id="accordion-payment">
           <div className="card">
-            <div className="card-header" id="heading-1">
+            <div
+              className="card-header"
+              onClick={() => onChangePayment(PAYMENTMETHOD.card)}
+              id="heading-1"
+            >
               <h2 className="card-title">
-                <a
-                  role="button"
-                  data-toggle="collapse"
-                  href="#collapse-1"
-                  aria-expanded="true"
-                  aria-controls="collapse-1"
-                >
+                <a className={isCard ? "" : "collapsed"}>
                   {" "}
                   Direct bank transfer{" "}
                 </a>
               </h2>
             </div>
             <div
-              id="collapse-1"
-              className="collapse show"
-              aria-labelledby="heading-1"
-              data-parent="#accordion-payment"
+              // id="collapse-1"
+              className={`collapse ${isCard && "show"}`}
             >
               <div className="card-body">
                 {" "}
@@ -107,27 +109,16 @@ const Summary = ({
             </div>
           </div>
           <div className="card">
-            <div className="card-header" id="heading-3">
+            <div
+              className="card-header"
+              onClick={() => onChangePayment(PAYMENTMETHOD.cash)}
+              id="heading-3"
+            >
               <h2 className="card-title">
-                <a
-                  className="collapsed"
-                  role="button"
-                  data-toggle="collapse"
-                  href="#collapse-3"
-                  aria-expanded="false"
-                  aria-controls="collapse-3"
-                >
-                  {" "}
-                  Cash on delivery{" "}
-                </a>
+                <a className={!isCash && "collapsed"}> Cash on delivery </a>
               </h2>
             </div>
-            <div
-              id="collapse-3"
-              className="collapse"
-              aria-labelledby="heading-3"
-              data-parent="#accordion-payment"
-            >
+            <div className={cn("collapse", { isCash: "show" })}>
               <div className="card-body">
                 Quisque volutpat mattis eros. Lorem ipsum dolor sit amet,
                 consectetuer adipiscing elit. Donec odio. Quisque volutpat
@@ -139,7 +130,7 @@ const Summary = ({
         <button
           type="submit"
           className="btn btn-outline-primary-2 btn-order btn-block"
-          onClick={handleSubmit(onSubmit)}
+          onClick={onPlaceOrder}
         >
           <span className="btn-text">Place Order</span>
           <span className="btn-hover-text">Proceed to Checkout</span>

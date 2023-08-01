@@ -7,3 +7,6 @@
 .top-menu ul li a.active {
   color: #fcb941 !important;
 }
+.cart-product-quantity .input-spinner .form-control {
+  text-align: center;
+}

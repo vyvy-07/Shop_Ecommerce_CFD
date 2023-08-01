@@ -7,6 +7,7 @@ const store = configureStore({
   reducer: {
     auth: authReducer,
     cart: cartReducer,
+    order: orderReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(thunkMiddleware),

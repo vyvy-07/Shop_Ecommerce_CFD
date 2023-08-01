@@ -1,15 +1,14 @@
 import { Select } from "antd";
-import { useEffect, useRef, useState } from "react";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonItem from "../../components/Button";
 import { Input } from "../../components/InputItem";
-import useQuery from "../../hook/useQuery";
 import { addressServices } from "../../services/addressServices";
 import { AuthService } from "../../services/authServices";
 import { authActions } from "../../store/reducers/authReducer";
 import { removeAccents } from "../../utils/format";
-import { LOCAL_STOGARE } from "../../constant/localStogare";
 
 const Profile = () => {
   const { profile } = useSelector((state) => state.auth);
@@ -21,14 +20,6 @@ const Profile = () => {
   const [idProvince, setIdProvince] = useState("");
   const [ward, setward] = useState("");
   const [idWard, setIdWard] = useState("");
-
-  const emailRef = useRef();
-
-  const onChange = () => {
-    console.log(emailRef.current?.value);
-  };
-
-  console.log(emailRef);
 
   const {
     register,
@@ -122,6 +113,13 @@ const Profile = () => {
       for (const field in profile) {
         setValue(field, profile[field]);
       }
+      setValue(
+        "birthday",
+        profile?.birthday &&
+          dayjs(profile?.birthday || "01-01-2000").format(
+            "YYYY/MM/DD".replaceAll("/", "-")
+          )
+      );
     }
   }, [profile]);
 
@@ -139,22 +137,6 @@ const Profile = () => {
       setIdWard(profile.ward);
     }
   }, [profile]);
-
-  // console.log("profile?.birthday", formatDay(24 / 12 / 2002));
-  // // const useEffect =
-  // //   (() => {
-  // //     const token = localStorage.getItem(LOCAL_STOGARE.token);
-  // //     if (token) {
-  // //       if (idProvince) {
-  // //         getDistrict();
-  // //         getDataWard();
-  // //       }
-  // //     }
-  // //   },
-  // //   []);
-  // useEffect(() => {
-
-  // }, []);
 
   return (
     <div

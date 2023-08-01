@@ -14,7 +14,7 @@ const useCartPage = () => {
   const onUpdate = async (value) => {
     const selectedValue = OPTION_RADIO?.find((item) => item?.value === value);
     console.log("selectedValue", selectedValue);
-    const listIdProduct = cardInfo?.product.map((item) => item?.id);
+    const listIdProduct = cardInfo?.product?.map((item) => item?.id);
     if (
       cardInfo?.id &&
       updateStatus !== THUNK_STATUS.pending &&

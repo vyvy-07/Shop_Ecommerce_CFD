@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { PAYMENTMETHOD } from "../../constant/globalConstant";
 import { PATHS } from "../../constant/path";
 import { orderServices } from "../../services/orderServices";
-import { updateCouponCard } from "../../store/reducers/cartsReducer";
+import { getCard, updateCouponCard } from "../../store/reducers/cartsReducer";
+import { checkout, getOrder } from "../../store/reducers/orderReducer";
+import THUNK_STATUS from "../../constant/thunkStatus";
 
 const useCheckout = () => {
   const { cardInfo } = useSelector((state) => state.cart);
@@ -14,28 +16,29 @@ const useCheckout = () => {
     cardInfo?.paymentMethod || PAYMENTMETHOD.cash
   );
   const navigate = useNavigate();
-
+  const { checkoutStatus } = useSelector((state) => state.order);
   const { profile } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { quantity, totalProduct, shipping, subTotal, total, variant } =
     cardInfo || {};
   const [dataCoupon, setDataCoupon] = useState({});
-  console.log("total", total);
+
   // Coupon
   const handleAddCoupon = async (coupon) => {
     try {
       const res = await orderServices.getDiscount(coupon);
       const dataCoupon = res?.data?.data;
-      console.log("dataCoupon", dataCoupon);
       if (dataCoupon) {
+        const totalDis =
+          subTotal -
+          (Number(dataCoupon?.value) || 0) +
+          (Number(shipping?.price) || 0);
         setDataCoupon(dataCoupon);
         dispatch(
           updateCouponCard({
             ...cardInfo,
             discount: dataCoupon?.value,
-            total:
-              subTotal + Number(dataCoupon?.value) ||
-              0 + Number(shipping?.price),
+            total: totalDis,
           })
         );
       }
@@ -51,7 +54,7 @@ const useCheckout = () => {
           ...cardInfo,
           discount: 0,
           discountCode: "",
-          total: subTotal + Number(shipping?.price),
+          total: subTotal + (Number(shipping?.price) || 0),
         })
       );
     }
@@ -73,9 +76,9 @@ const useCheckout = () => {
         email: email || "",
         phone: phone || "",
         street: street || "",
-        district: district,
-        ward: ward,
-        province: province,
+        district: district || "",
+        ward: ward || "",
+        province: province || "",
         shipping: {
           typeShip: typeShip || "",
         },
@@ -109,6 +112,7 @@ const useCheckout = () => {
 
   const handleCheckOut = async (data) => {
     const idProduct = cardInfo?.product?.map((item) => item?.id);
+
     let payload = {};
     if (data) {
       payload = {
@@ -130,14 +134,14 @@ const useCheckout = () => {
         discount: dataCoupon?.value || 0,
         discountCode: dataCoupon?.code || "",
       };
-      console.log("payload", payload);
     }
     try {
-      if (idProduct?.length > 0) {
-        const res = await orderServices.postOrder(payload);
-        console.log("res", res);
-        if (res) {
-          navigate(PATHS.CHECK_SUCCESS);
+      if (idProduct?.length > 0 && checkoutStatus !== THUNK_STATUS.pending) {
+        const dataCheckout = await dispatch(checkout(payload)).unwrap();
+        console.log("dataCheckout", dataCheckout);
+        if (dataCheckout) {
+          message.success("Checkout success!");
+          navigate(PATHS.CHECK_SUCCESS + `?id=${dataCheckout?.customer}`);
         }
       } else {
         message.error("You no have product!");
@@ -146,7 +150,6 @@ const useCheckout = () => {
       console.log("error", error);
     }
   };
-  console.log("discountCode", cardInfo?.discountCode);
   const discountDashboard = {
     ...cardInfo,
     handleAddCoupon,

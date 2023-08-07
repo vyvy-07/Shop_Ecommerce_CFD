@@ -5,6 +5,7 @@ import { getCard } from "./cartsReducer";
 
 const initialState = {
   profile: null,
+  listOrder: null,
 };
 export const { reducer: authReducer, actions: authActions } = createSlice({
   initialState,
@@ -17,6 +18,9 @@ export const { reducer: authReducer, actions: authActions } = createSlice({
     },
     setProfile: (state, action) => {
       state.profile = action.payload;
+    },
+    setOrder: (state, action) => {
+      state.listOrder = action.payload;
     },
   },
 });
@@ -41,14 +45,13 @@ export const login = createAsyncThunk(
     }
   }
 );
-export const { logout } = authActions;
+export const { logout, setOrder } = authActions;
 export const getProfile = createAsyncThunk(
   "auth/getProfile",
   async (payload, thunkAPI) => {
     try {
       console.log("payload :>> ", payload);
       const data = await AuthService.getProfile();
-
       thunkAPI.dispatch(authActions?.setProfile(data?.data?.data));
       return data?.data?.data;
     } catch (error) {

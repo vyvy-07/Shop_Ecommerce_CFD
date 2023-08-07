@@ -9,4 +9,7 @@ export const orderServices = {
   postOrder(payload = {}) {
     return axiosInstance.post(`/orders`, payload);
   },
+  getOrders(query = "") {
+    return axiosInstance.get(`/orders/me${query}`);
+  },
 };

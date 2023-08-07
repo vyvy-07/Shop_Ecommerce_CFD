@@ -3,6 +3,7 @@ import thunkMiddleware from "redux-thunk";
 import { ENV } from "../constant/enviroment";
 import { authReducer } from "./reducers/authReducer";
 import cartReducer from "./reducers/cartsReducer";
+import { orderReducer } from "./reducers/orderReducer";
 const store = configureStore({
   reducer: {
     auth: authReducer,

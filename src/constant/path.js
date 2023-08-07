@@ -13,7 +13,7 @@ export const PATHS = {
   BLOG: BLOG,
   BLOG_DETAIL: BLOG + "/:slug",
   CHECK: CHECK,
-  CHECK_SUCCESS: CHECK + "/:slug",
+  CHECK_SUCCESS: "/checkoutSuccess",
   PRODUCTS: PRODUCTS,
   PRODUCTS_DETAIL: PRODUCTS + "/:slug",
   CART: "/cart",

@@ -3,12 +3,11 @@ import { Input } from "../../components/InputItem";
 import { addressServices } from "../../services/addressServices";
 import { useSelector } from "react-redux";
 import { Controller } from "react-hook-form";
-import { Select } from "antd";
+import { Select, message } from "antd";
 
 const FormCheckout = ({ form }) => {
   const {
     register,
-    setValue,
     control,
     formState: { errors },
   } = form || {};
@@ -152,6 +151,9 @@ const FormCheckout = ({ form }) => {
           <Controller
             name="province"
             control={control}
+            rules={{
+              required: true,
+            }}
             render={({ field }) => (
               // sending integer instead of string.
               <Select
@@ -189,6 +191,9 @@ const FormCheckout = ({ form }) => {
           <Controller
             name="district"
             control={control}
+            rules={{
+              required: true,
+            }}
             render={({ field }) => (
               // sending integer instead of string.
               <Select
@@ -220,6 +225,9 @@ const FormCheckout = ({ form }) => {
         <div className="col-sm-4">
           <label>Ward *</label>
           <Controller
+            rules={{
+              required: true,
+            }}
             name="ward"
             control={control}
             render={({ field }) => (

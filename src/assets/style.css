@@ -10,3 +10,6 @@
 .cart-product-quantity .input-spinner .form-control {
   text-align: center;
 }
+.product-col, .table .text-center, .text-center{
+  border: none;
+}

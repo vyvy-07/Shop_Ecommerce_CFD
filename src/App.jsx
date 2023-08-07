@@ -11,7 +11,7 @@ import Checkout from "./page/Checkout";
 import CheckoutSuccess from "./page/Checkout-success";
 import ContactPage from "./page/Contact";
 import Addresses from "./page/Dashboard/Addresses";
-import Orders from "./page/Dashboard/Orders";
+import Orders from "./page/Dashboard/ListOrders";
 import Profile from "./page/Dashboard/Profile";
 import Wishlist from "./page/Dashboard/Wishlist";
 import FaqPage from "./page/Faq";

@@ -16,9 +16,7 @@ const Summary = ({
   paymentMethod,
   onPlaceOrder,
 }) => {
-  console.log("paymentMethod", paymentMethod);
   const isCash = paymentMethod === PAYMENTMETHOD.cash;
-  console.log("isCash", isCash);
   const isCard = paymentMethod === PAYMENTMETHOD.card;
   return (
     <aside className="col-lg-3">

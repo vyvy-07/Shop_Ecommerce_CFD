@@ -1,14 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { getCard, updateCard } from "../../store/reducers/cartsReducer";
-import { message } from "antd";
-import { CART_MESSAGE } from "../../constant/message";
+import { useDispatch, useSelector } from 'react-redux';
+import { getCard, updateCard } from '../../store/reducers/cartsReducer';
+import { message } from 'antd';
+import { CART_MESSAGE } from '../../constant/message';
 
 export const useHeader = () => {
   const { cardInfo } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const products = {
     products: cardInfo?.product?.map((item, index) => {
-      return { ...item, quantity: cardInfo?.quantity[index] || "1" };
+      return { ...item, quantity: cardInfo?.quantity[index] || '1' };
     }),
   };
   const onRemoveProduct = async (id) => {
@@ -31,18 +31,17 @@ export const useHeader = () => {
             quantity: newListQuantity,
             subTotal: 0,
             total: 0,
-            totalProduct: ["string"],
+            totalProduct: ['string'],
           };
         }
       }
-      console.log("payload", payload);
       const res = await dispatch(updateCard(payload)).unwrap();
       if (res.id) {
         dispatch(getCard());
         message.success(CART_MESSAGE.delete);
       }
     } catch (error) {
-      console.log("error", error);
+      console.log('error', error);
     }
   };
   const headerMiddle = {

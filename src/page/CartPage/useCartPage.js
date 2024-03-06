@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import { OPTION_RADIO } from "../../constant/radio";
-import { message } from "antd";
-import { GENERAL_MESSAGE } from "../../constant/message";
-import THUNK_STATUS from "../../constant/thunkStatus";
-import { updateCard } from "../../store/reducers/cartsReducer";
-import { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { OPTION_RADIO } from '../../constant/radio';
+import { message } from 'antd';
+import { GENERAL_MESSAGE } from '../../constant/message';
+import THUNK_STATUS from '../../constant/thunkStatus';
+import { updateCard } from '../../store/reducers/cartsReducer';
+import { useState } from 'react';
 
 const useCartPage = () => {
   const { cardInfo, updateStatus } = useSelector((state) => state.cart);
@@ -13,7 +13,6 @@ const useCartPage = () => {
   let payLoadShipping = {};
   const onUpdate = async (value) => {
     const selectedValue = OPTION_RADIO?.find((item) => item?.value === value);
-    console.log("selectedValue", selectedValue);
     const listIdProduct = cardInfo?.product?.map((item) => item?.id);
     if (
       cardInfo?.id &&
@@ -31,7 +30,7 @@ const useCartPage = () => {
         };
         await dispatch(updateCard(payLoadShipping)).unwrap();
       } catch (error) {
-        console.log("error", error);
+        console.log('error', error);
         message.error(GENERAL_MESSAGE.fail);
       }
     }
@@ -64,7 +63,7 @@ const useCartPage = () => {
 
         await dispatch(updateCard(newPayLoad));
       } catch (error) {
-        console.log("error", error);
+        console.log('error', error);
       }
     }
   };
@@ -93,12 +92,12 @@ const useCartPage = () => {
             product: productPayload,
             quantity: quantityPayload,
           };
-          console.log("payload", payload);
+          console.log('payload', payload);
         }
         const res = await dispatch(updateCard(payload)).unwrap();
-        console.log("res", res);
+        console.log('res', res);
       } catch (error) {
-        console.log("error", error);
+        console.log('error', error);
       }
     }
   };

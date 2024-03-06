@@ -1,8 +1,8 @@
-import React from "react";
-import { formatCurrency } from "../../utils/format";
-import { Modal } from "antd";
-import { ExclamationCircleFilled } from "@ant-design/icons";
-import QuantityInput from "../../components/QuantityInput";
+import React from 'react';
+import { formatCurrency } from '../../utils/format';
+import { Modal } from 'antd';
+import { ExclamationCircleFilled } from '@ant-design/icons';
+import QuantityInput from '../../components/QuantityInput';
 const ListCart = ({
   product,
   handleRemoveCart,
@@ -11,11 +11,11 @@ const ListCart = ({
 }) => {
   const { confirm } = Modal;
   const onUpdate = (e) => {
-    console.log("first", e.target.value);
+    console.log('first', e.target.value);
   };
   const showConfirm = (data) => {
     confirm({
-      title: "Do you Want to delete these items?",
+      title: 'Do you Want to delete these items?',
       icon: <ExclamationCircleFilled />,
       content: (
         <>
@@ -29,7 +29,7 @@ const ListCart = ({
         handleRemoveCart(data?.id);
       },
       onCancel() {
-        console.log("Cancel");
+        console.log('Cancel');
       },
     });
   };
@@ -56,8 +56,8 @@ const ListCart = ({
                         <a href="#">
                           <img
                             src={
-                              item?.images ||
-                              "assets/images/demos/demo-3/products/product-6.jpg"
+                              item?.images?.[0] ||
+                              'assets/images/demos/demo-3/products/product-6.jpg'
                             }
                             alt="Product image"
                           />

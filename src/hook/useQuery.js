@@ -8,7 +8,7 @@ const useQuery = (promise, dependency = []) => {
     fetchData();
   }, dependency);
 
-// nhận vào 1 query khác 
+  // nhận vào 1 query khác
   const fetchData = async (query) => {
     try {
       const res = await promise(query);

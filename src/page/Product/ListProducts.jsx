@@ -1,6 +1,6 @@
 import ProductItem from "../../components/ProductItem";
 
-const ListProducts = ({ loadingListProduct, errorProduct, listProduct }) => {
+const ListProducts = ({ listProduct }) => {
   //if ((!loadingListProduct && listProduct?.length < 1) || errorProduct) {
   //  return (
   //    <div className="products mb-3">

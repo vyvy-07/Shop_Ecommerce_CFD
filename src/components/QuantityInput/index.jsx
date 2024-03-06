@@ -48,7 +48,7 @@ const QuantityInput = ({
   };
 
   return (
-    <div className={className}>
+    <div className={className} style={{ maxWidth: "131px", width: "auto" }}>
       <div className="input-group  input-spinner">
         <div className="input-group-prepend">
           <button

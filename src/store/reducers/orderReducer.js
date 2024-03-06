@@ -42,7 +42,6 @@ export const checkout = createAsyncThunk(
         thunkApi.dispatch(getOrder());
         thunkApi.dispatch(getCard());
         thunkApi.fulfillWithValue(orderInfo);
-
         return orderInfo;
       }
     } catch (error) {

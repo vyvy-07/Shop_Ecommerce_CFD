@@ -5,7 +5,7 @@ const LabelOrder = ({ id, createdAt }) => {
   return (
     <div>
       <p>
-        id:{id || 1} ({createdAt && moment(createdAt).format("ll")})
+        id:{id || 1} ({createdAt && moment(createdAt).endOf("day").fromNow()})
       </p>
     </div>
   );

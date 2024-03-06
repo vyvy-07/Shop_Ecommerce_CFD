@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const DealSection = () => {
   return (
@@ -89,7 +89,7 @@ const DealSection = () => {
                         <div className="ratings">
                           <div
                             className="ratings-val"
-                            style={{ width: "80%" }}
+                            style={{ width: '80%' }}
                           />
                         </div>
                         <span className="ratings-text">( 5 Reviews )</span>
@@ -142,7 +142,7 @@ const DealSection = () => {
                         <div className="ratings">
                           <div
                             className="ratings-val"
-                            style={{ width: "60%" }}
+                            style={{ width: '60%' }}
                           />
                         </div>
                         <span className="ratings-text">( 4 Reviews )</span>

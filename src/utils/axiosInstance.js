@@ -1,7 +1,7 @@
-import axios from "axios";
-import { message } from "antd";
-import { BASE_URL } from "../constant/enviroment";
-import { LOCAL_STOGARE } from "../constant/localStogare";
+import axios from 'axios';
+import { message } from 'antd';
+import { BASE_URL } from '../constant/enviroment';
+import { LOCAL_STOGARE } from '../constant/localStogare';
 
 //tạo 1 instance của axios
 const axiosInstance = axios.create({
@@ -29,8 +29,7 @@ axiosInstance.interceptors.response.use(
         //gọi lại yêu cầu với token mới
         return axiosInstance(originalRequest);
       } catch (error) {
-        message.error("hết hạn token");
-        console.log("hết hạn token :>> ", error);
+        console.log('error', error);
       }
     }
     return Promise.reject(error);

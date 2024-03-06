@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useRef } from "react";
-import useQuery from "../../hook/useQuery";
-import { productsServices } from "../../services/productsServices";
-import { useLocation, useSearchParams } from "react-router-dom";
-import queryString from "query-string";
-import { SORT_OBJECT } from "../../constant/sort";
+import React, { useEffect, useMemo, useRef } from 'react';
+import useQuery from '../../hook/useQuery';
+import { productsServices } from '../../services/productsServices';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import queryString from 'query-string';
+import { SORT_OBJECT } from '../../constant/sort';
 
 const useProductsPage = () => {
   const { search } = useLocation();
@@ -34,7 +34,6 @@ const useProductsPage = () => {
   // sử dụng useRef để giữ lại gtri hiện tại
   const currentSearch = useRef(search);
   useEffect(() => {
-    console.log("search", search);
     //search yêu cầu "search" khác search hiện tại thì sẽ thực thi
     if (search !== currentSearch.current) {
       refetchProduct?.(search);
@@ -96,7 +95,7 @@ const useProductsPage = () => {
   let listCategory = dataCategories?.products;
 
   const onChangeFilter = (id) => {
-    console.log("id", id);
+    console.log('id', id);
     upDateQueryString({ ...queryObj, category: id });
   };
   const filterProps = {

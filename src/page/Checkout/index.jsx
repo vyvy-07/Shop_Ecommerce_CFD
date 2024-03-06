@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import Summary from "./Summary";
-import FormCheckout from "./FormCheckout";
-import useCheckout from "./useCheckout";
-import { Input } from "../../components/InputItem";
-import DiscountDashboard from "./DiscountDashboard";
-import Breadcrumb from "../../components/Breadcrumb";
-import { PATHS } from "../../constant/path";
-import { Link, NavLink, Navigate } from "react-router-dom";
+import React, { useEffect } from 'react';
+import Summary from './Summary';
+import FormCheckout from './FormCheckout';
+import useCheckout from './useCheckout';
+import { Input } from '../../components/InputItem';
+import DiscountDashboard from './DiscountDashboard';
+import Breadcrumb from '../../components/Breadcrumb';
+import { PATHS } from '../../constant/path';
+import { Link, NavLink, Navigate } from 'react-router-dom';
 
 const Checkout = () => {
   const { summary, cardInfo, formCheckout, form, discountDashboard } =
@@ -15,7 +15,6 @@ const Checkout = () => {
     register,
     formState: { errors },
   } = form || {};
-
   return (
     <main className="main">
       <div
@@ -29,10 +28,10 @@ const Checkout = () => {
 
       <Breadcrumb>
         <Breadcrumb.Item>
-          <Link to={PATHS.INDEX}>Home</Link>{" "}
+          <Link to={PATHS.INDEX}>Home</Link>{' '}
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <Link to={PATHS.PRODUCTS}>Product</Link>{" "}
+          <Link to={PATHS.PRODUCTS}>Product</Link>{' '}
         </Breadcrumb.Item>
         <Breadcrumb.Item isActive> Checkout</Breadcrumb.Item>
       </Breadcrumb>

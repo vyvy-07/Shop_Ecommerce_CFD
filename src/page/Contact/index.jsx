@@ -1,20 +1,19 @@
-import { useState } from "react";
+import { useState } from 'react';
 //import InputItem from "../../components/InputItem";
 
 const ContactPage = () => {
   const [errors, setErrors] = useState({});
   const [form, setForm] = useState({});
   const errorObj = {};
-  console.log("form.email :>> ", form.email);
+  console.log('form.email :>> ', form.email);
   const onSubmit = (e) => {
     e.preventDefault();
     if (!form.email) {
-      errorObj.email = "vui lòng thử lại!";
-      console.log("errorObj.emailjjj :>> ", errorObj.email);
+      errorObj.email = 'vui lòng thử lại!';
+      console.log('errorObj.emailjjj :>> ', errorObj.email);
     }
     setErrors(errorObj);
   };
-  //console.log("form :>> ", form);
   return (
     <main className="main">
       <nav aria-label="breadcrumb" className="breadcrumb-nav border-0 mb-0">
@@ -182,7 +181,7 @@ const ContactPage = () => {
                   id="cmessage"
                   required
                   placeholder="Message *"
-                  defaultValue={""}
+                  defaultValue={''}
                 />
                 <button
                   type="submit"

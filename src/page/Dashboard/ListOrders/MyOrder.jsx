@@ -31,7 +31,7 @@ const MyOrder = ({ listOrder, modal }) => {
   };
   return (
     <>
-      <h1>hiii</h1>
+      <h4>My list ordered:</h4>
       <Collapse
         bordered={false}
         defaultActiveKey={["1"]}

@@ -1,9 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Breadcrumb from "../../components/Breadcrumb";
 import LoadingPage from "../../components/Loading";
 import Pagination from "../../components/Pagination";
-import { LOCAL_STOGARE } from "../../constant/localStogare";
 import { PATHS } from "../../constant/path";
 import FilterProduct from "./FilterProduct";
 import ListProducts from "./ListProducts";

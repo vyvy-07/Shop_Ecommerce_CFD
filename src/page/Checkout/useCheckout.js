@@ -1,14 +1,14 @@
-import { message } from "antd";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { PAYMENTMETHOD } from "../../constant/globalConstant";
-import { PATHS } from "../../constant/path";
-import { orderServices } from "../../services/orderServices";
-import { getCard, updateCouponCard } from "../../store/reducers/cartsReducer";
-import { checkout, getOrder } from "../../store/reducers/orderReducer";
-import THUNK_STATUS from "../../constant/thunkStatus";
+import { message } from 'antd';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { PAYMENTMETHOD } from '../../constant/globalConstant';
+import { PATHS } from '../../constant/path';
+import { orderServices } from '../../services/orderServices';
+import { getCard, updateCouponCard } from '../../store/reducers/cartsReducer';
+import { checkout, getOrder } from '../../store/reducers/orderReducer';
+import THUNK_STATUS from '../../constant/thunkStatus';
 
 const useCheckout = () => {
   const { cardInfo } = useSelector((state) => state.cart);
@@ -43,8 +43,8 @@ const useCheckout = () => {
         );
       }
     } catch (error) {
-      message.error("Coupon is not valid");
-      console.log("error", error);
+      message.error('Coupon is not valid');
+      console.log('error', error);
     }
   };
   const handleRemoveCoupon = async (coupon) => {
@@ -53,7 +53,7 @@ const useCheckout = () => {
         updateCouponCard({
           ...cardInfo,
           discount: 0,
-          discountCode: "",
+          discountCode: '',
           total: subTotal + (Number(shipping?.price) || 0),
         })
       );
@@ -72,15 +72,15 @@ const useCheckout = () => {
       // fill in form with form.reset() of RHF
       const typeShip = cardInfo?.shipping?.typeShip;
       form.reset({
-        fullName: firstName || "",
-        email: email || "",
-        phone: phone || "",
-        street: street || "",
-        district: district || "",
-        ward: ward || "",
-        province: province || "",
+        fullName: firstName || '',
+        email: email || '',
+        phone: phone || '',
+        street: street || '',
+        district: district || '',
+        ward: ward || '',
+        province: province || '',
         shipping: {
-          typeShip: typeShip || "",
+          typeShip: typeShip || '',
         },
       });
     }
@@ -100,9 +100,9 @@ const useCheckout = () => {
 
   const onPlaceOrder = () => {
     if (!!!cardInfo?.shipping?.typeShip) {
-      message.error("Error: Shipping is not valid");
+      message.error('Error: Shipping is not valid');
     } else if (!!!currentPaymetMethod) {
-      message.error("Error: Payment is not valid");
+      message.error('Error: Payment is not valid');
     } else {
       // form from RHF
       const checkout = form.handleSubmit(handleCheckOut);
@@ -117,37 +117,36 @@ const useCheckout = () => {
     if (data) {
       payload = {
         address: {
-          phone: data?.phone || "",
-          email: data?.email || "",
-          fullName: data?.fullName || "",
-          street: data?.street || "",
+          phone: data?.phone || '',
+          email: data?.email || '',
+          fullName: data?.fullName || '',
+          street: data?.street || '',
         },
         shipping,
         variant,
-        note: data?.note || "",
+        note: data?.note || '',
         product: idProduct,
         subTotal,
         total,
         quantity,
         totalProduct,
-        paymentMethod: currentPaymetMethod || "",
+        paymentMethod: currentPaymetMethod || '',
         discount: dataCoupon?.value || 0,
-        discountCode: dataCoupon?.code || "",
+        discountCode: dataCoupon?.code || '',
       };
     }
     try {
       if (idProduct?.length > 0 && checkoutStatus !== THUNK_STATUS.pending) {
         const dataCheckout = await dispatch(checkout(payload)).unwrap();
-        console.log("dataCheckout", dataCheckout);
         if (dataCheckout) {
-          message.success("Checkout success!");
+          message.success('Checkout success!');
           navigate(PATHS.CHECK_SUCCESS + `?id=${dataCheckout?.customer}`);
         }
       } else {
-        message.error("You no have product!");
+        message.error('You no have product!');
       }
     } catch (error) {
-      console.log("error", error);
+      console.log('error', error);
     }
   };
   const discountDashboard = {

@@ -1,12 +1,12 @@
-import React from "react";
-import CheckedItem from "../../components/Checked";
+import React from 'react';
+import CheckedItem from '../../components/Checked';
 
 const FilterProduct = ({ listCategory, onChangeFilter }) => {
   const onClick = (id, checked) => {
     if (checked) {
       onChangeFilter(id);
     } else {
-      onChangeFilter("");
+      onChangeFilter('');
     }
   };
   return (
@@ -26,8 +26,8 @@ const FilterProduct = ({ listCategory, onChangeFilter }) => {
             aria-expanded="true"
             aria-controls="widget-1"
           >
-            {" "}
-            Category{" "}
+            {' '}
+            Category{' '}
           </a>
         </h3>
         <div className="collapse show" id="widget-1">
@@ -35,18 +35,12 @@ const FilterProduct = ({ listCategory, onChangeFilter }) => {
             <div className="filter-items filter-items-count">
               {listCategory?.length > 0 &&
                 listCategory?.map((item, index) => {
-                  // console.log('item', item?.id)
-
                   return (
                     <div className="filter-item" key={item?.id || index}>
                       <CheckedItem
-                        label={item?.name || ""}
+                        label={item?.name || ''}
                         id={item?.id || index}
                         onClick={(value) => {
-                          console.log(
-                            "value.target.checked",
-                            value.target.checked
-                          );
                           onClick(item?.id, value.target.checked);
                         }}
                       />
@@ -66,15 +60,15 @@ const FilterProduct = ({ listCategory, onChangeFilter }) => {
             aria-expanded="true"
             aria-controls="widget-5"
           >
-            {" "}
-            Price{" "}
+            {' '}
+            Price{' '}
           </a>
         </h3>
         <div className="collapse show" id="widget-2">
           <div className="widget-body">
             <div className="filter-price">
               <div className="filter-price-text">
-                {" "}
+                {' '}
                 Price Range: <span id="filter-price-range" />
               </div>
               <div id="price-slider" />

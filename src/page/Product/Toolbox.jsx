@@ -1,23 +1,22 @@
-import React from "react";
-import Select from "../../components/Select";
-import { SORT_OBJECT } from "../../constant/sort";
+import React from 'react';
+import Select from '../../components/Select';
+import { SORT_OBJECT } from '../../constant/sort';
 
 const Toolbox = ({ showNumber, showPage, activeSort, onSortChange }) => {
   const onSelectChange = (e) => {
     onSortChange?.(e.target.value);
-    console.log("object :>> ", e.target.value);
   };
 
   return (
     <div className="toolbox">
       <div className="toolbox-left">
         <div className="toolbox-info">
-          {" "}
-          Showing{" "}
+          {' '}
+          Showing{' '}
           <span>
             {showNumber} of {showPage}
-          </span>{" "}
-          Products{" "}
+          </span>{' '}
+          Products{' '}
         </div>
       </div>
       <div className="toolbox-right">
